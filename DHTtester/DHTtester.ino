@@ -9,9 +9,9 @@
 
 DHT dht(DHTPIN, DHTTYPE);
 
-char ssid[] = SECRET_SSID;   // your network SSID (name) 
-char pass[] = SECRET_PASS;   // your network password
-int keyIndex = 0;            // your network key Index number (needed only for WEP)
+char ssid[] = SECRET_SSID;
+char pass[] = SECRET_PASS;   
+int keyIndex = 0;            
 WiFiClient  client;
 
 unsigned long myChannelNumber = SECRET_CH_ID;
@@ -20,15 +20,14 @@ const char * myWriteAPIKey = SECRET_WRITE_APIKEY;
 void setup() {
   Serial.begin(9600);
   while (!Serial) {
-    ; // wait for serial port to connect. Needed for Leonardo native USB port only
+    ; // wait for serial port to connect.
   }
   
   if(WiFi.status() != WL_CONNECTED){
     Serial.print("Attempting to connect to SSID: ");
     Serial.println(SECRET_SSID);
     while(WiFi.status() != WL_CONNECTED){
-      WiFi.begin(ssid, pass);  // Connect to WPA/WPA2 network. Change this line if using open or WEP network
-      Serial.print(".");
+      WiFi.begin(ssid, pass);
       delay(5000);     
     } 
     Serial.println("\nConnected.");
@@ -36,14 +35,13 @@ void setup() {
   Serial.println("\nWiFi connected");
 
   dht.begin();
-  ThingSpeak.begin(client); // Initialize ThingSpeak
+  ThingSpeak.begin(client);
 }
 
 void loop() {
-  // Reading temperature or humidity takes about 250 milliseconds!
-  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+  // Reading temperature or humidity
   float h = dht.readHumidity();
-  // Read temperature as Celsius (the default)
+  // Read temperature as Celsius
   float t = dht.readTemperature();
 
   // Check if any reads failed and exit early (to try again).
